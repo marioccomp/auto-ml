@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Button, FormControl, SegmentedControl, Stack, TextInput } from '@primer/react'
 
+import { navigateTo, routes } from '../../../app/routes'
 import type { AuthFeedback, AuthMode } from '../types'
 import './AuthForm.css'
 
@@ -10,13 +11,27 @@ const submitLabel = {
   register: 'Registrar',
 } satisfies Record<AuthMode, string>
 
-export function AuthForm() {
-  const [mode, setMode] = useState<AuthMode>('login')
+const routeByMode = {
+  login: routes.login,
+  register: routes.register,
+} satisfies Record<AuthMode, string>
+
+type AuthFormProps = {
+  mode: AuthMode
+}
+
+export function AuthForm({ mode }: AuthFormProps) {
   const [feedback, setFeedback] = useState<AuthFeedback | null>(null)
 
   function handleModeChange(index: number) {
-    setMode(index === 0 ? 'login' : 'register')
+    const nextMode: AuthMode = index === 0 ? 'login' : 'register'
+
+    if (nextMode === mode) {
+      return
+    }
+
     setFeedback(null)
+    navigateTo(routeByMode[nextMode])
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
