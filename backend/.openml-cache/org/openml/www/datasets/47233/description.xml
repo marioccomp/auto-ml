@@ -1,0 +1,12 @@
+<oml:data_set_description xmlns:oml="http://openml.org/openml">
+  <oml:id>47233</oml:id>
+  <oml:name>jndi_arff_test</oml:name>
+  <oml:version>1</oml:version>
+  <oml:description>test</oml:description>
+  <oml:description_version>1</oml:description_version>
+  <oml:format>ARFF</oml:format>
+        <oml:upload_date>2026-04-20T17:12:37</oml:upload_date>
+    <oml:licence>Public</oml:licence>  <oml:url>https://openml.org/data/v1/download/22126634/jndi_arff_test.arff</oml:url>
+  <oml:parquet_url>https://data.openml.org/datasets/0004/47233/dataset_47233.pq</oml:parquet_url>  <oml:file_id>22126634</oml:file_id>  <oml:default_target_attribute>class</oml:default_target_attribute>            <oml:visibility>public</oml:visibility>        <oml:status>active</oml:status>
+  <oml:processing_date>2026-04-20 17:13:09</oml:processing_date>      <oml:md5_checksum>98d131d3248a31dfaa90f011a7cbc8c6</oml:md5_checksum>
+</oml:data_set_description>
