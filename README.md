@@ -80,10 +80,10 @@ No frontend:
 
 ```bash
 cd frontend
-npm run format        # formata os arquivos
-npm run format:check  # verifica se a formatação está correta
-npm run lint          # executa o ESLint
-npm run check         # executa lint + checagem do Prettier
+pnpm run format        # formata os arquivos
+pnpm run format:check  # verifica se a formatação está correta
+pnpm run lint          # executa o ESLint
+pnpm run check         # executa lint + checagem do Prettier
 ```
 
 No backend:
@@ -100,10 +100,10 @@ ruff check . --fix  # corrige automaticamente o que for seguro
 No frontend:
 
 ```bash
-npm run dev      # inicia o ambiente de desenvolvimento
-npm run build    # gera a versão de produção
-npm run lint     # executa o lint
-npm run preview  # pré-visualiza o build
+pnpm run dev      # inicia o ambiente de desenvolvimento
+pnpm run build    # gera a versão de produção
+pnpm run lint     # executa o lint
+pnpm run preview  # pré-visualiza o build
 ```
 
 No backend:
