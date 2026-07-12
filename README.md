@@ -6,24 +6,31 @@ Projeto com backend em **FastAPI**, frontend em **React + Vite** e banco de dado
 
 ```text
 auto-ml/
-├── backend/                  # API em FastAPI
-│   ├── main.py
-│   ├── pyproject.toml        # Configuração do Ruff
-│   ├── requirements.txt      # Dependências Python do backend
-│   └── requirements-dev.txt  # Dependências de desenvolvimento do backend
-├── database/                 # Configuração do banco local
-│   └── compose.yaml
-├── frontend/                 # Aplicação React com Vite
-│   ├── public/
-│   └── src/
-├── .editorconfig             # Regras básicas compartilhadas entre editores
-├── .gitignore
-└── README.md
+|-- backend/                  # API em FastAPI
+|   |-- main.py
+|   |-- pyproject.toml        # Configuracao do Ruff
+|   |-- requirements.txt      # Dependencias Python do backend
+|   `-- requirements-dev.txt  # Dependencias de desenvolvimento do backend
+|-- database/                 # Configuracao do banco local
+|   `-- compose.yaml
+|-- frontend/                 # Aplicacao React com Vite
+|   |-- public/
+|   `-- src/
+|       |-- app/              # Configuracoes de app, rotas e providers
+|       |-- components/       # Componentes compartilhados
+|       |-- features/         # Componentes e regras por dominio
+|       |-- pages/            # Telas completas
+|       |-- App.tsx
+|       |-- index.css         # Variaveis globais e paleta
+|       `-- main.tsx
+|-- .editorconfig
+|-- .gitignore
+`-- README.md
 ```
 
 ## Backend
 
-A API fica na pasta `backend/` e atualmente expõe uma rota inicial para verificar se o serviço está respondendo.
+A API fica em `backend/`.
 
 ```bash
 cd backend
@@ -36,25 +43,101 @@ fastapi dev main.py
 Depois de iniciar o servidor, acesse:
 
 - API: `http://localhost:8000`
-- Documentação interativa: `http://localhost:8000/docs`
-
-> `fastapi dev main.py` é o comando recomendado para desenvolvimento. Ele encontra a aplicação FastAPI no arquivo `main.py`, ativa o reload automático e usa o Uvicorn por baixo. O comando `uvicorn main:app --reload` também funciona, mas é mais explícito e um pouco menos conveniente para o dia a dia.
+- Docs: `http://localhost:8000/docs`
 
 ## Frontend
 
-A aplicação web fica na pasta `frontend/` e usa React com Vite.
+A aplicacao web fica em `frontend/` e usa React, Vite, TypeScript, pnpm e GitHub Primer.
 
 ```bash
 cd frontend
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
-Depois de iniciar, o Vite mostra no terminal a URL local da aplicação, geralmente `http://localhost:5173`.
+A URL local padrao e `http://localhost:5173`.
+
+## GitHub Primer
+
+O frontend usa **GitHub Primer React** como base de componentes.
+
+Configuracao principal:
+
+- `frontend/src/main.tsx` importa o tema do Primer.
+- `ThemeProvider` e `BaseStyles` envolvem o app.
+- Componentes de UI devem vir de `@primer/react` sempre que existir uma opcao adequada.
+
+Exemplo:
+
+```tsx
+import { Button, FormControl, TextInput } from "@primer/react";
+```
+
+Use Primer para controles comuns: `Button`, `TextInput`, `FormControl`, `SegmentedControl`, `Dialog`, `Label`, `Stack`, `PageLayout`, `NavList`, tabelas e feedbacks.
+
+## Padrao de componentes
+
+Organizacao recomendada no `frontend/src`:
+
+```text
+src/
+|-- app/                 # rotas, providers, configuracoes globais
+|-- components/          # layout e componentes reaproveitaveis
+|   `-- layout/
+|-- features/            # funcionalidades por dominio
+|   `-- auth/
+|       |-- components/
+|       `-- types.ts
+|-- pages/               # telas completas que juntam layouts e features
+|-- App.tsx
+|-- index.css
+`-- main.tsx
+```
+
+Regras praticas:
+
+- `pages/` monta a tela.
+- `features/` guarda componentes e logica de uma funcionalidade especifica.
+- `components/` guarda pecas compartilhadas entre varias features.
+- CSS de componente fica ao lado do componente: `AuthForm.tsx` + `AuthForm.css`.
+- `App.tsx` deve apenas apontar para a pagina/roteamento atual.
+
+## Padrao de cores
+
+As cores do frontend devem sair de `frontend/src/index.css`.
+
+Use variaveis semanticas nos componentes:
+
+```css
+background: var(--color-surface);
+color: var(--color-text);
+border-color: var(--color-border);
+```
+
+Nao coloque hex direto em CSS de componente, exceto quando estiver definindo a paleta em `index.css`.
+
+A paleta tem blocos para light e dark:
+
+```css
+:root,
+[data-theme="light"] {
+  --color-canvas: #f6f8fa;
+  --color-surface: #ffffff;
+}
+
+[data-theme="dark"] {
+  --color-canvas: #0d1117;
+  --color-surface: #161b22;
+}
+```
+
+Para trocar a paleta, altere apenas as variaveis em `index.css`. Para ativar dark mode manualmente, defina `data-theme="dark"` no elemento `html` ou em um wrapper raiz.
+
+O `index.css` tambem mapeia algumas variaveis do Primer para a paleta do projeto, como `--bgColor-default`, `--fgColor-default`, `--borderColor-default` e tokens do botao primario.
 
 ## Banco de dados
 
-A configuração do PostgreSQL fica em `database/compose.yaml`.
+A configuracao do PostgreSQL fica em `database/compose.yaml`.
 
 ```bash
 cd database
@@ -67,55 +150,55 @@ Para parar o banco:
 docker compose down
 ```
 
-## Padronização de código
+## Padronizacao de codigo
 
-Para manter o código consistente em dupla, o projeto usa:
+O projeto usa:
 
-- **EditorConfig** na raiz, para regras básicas de editor.
-- **Prettier** no frontend, para TypeScript, React, CSS, JSON e Markdown.
-- **Ruff** no backend, para formatar Python, organizar imports e apontar problemas comuns.
-- Recomendações do VS Code em `.vscode/`, incluindo formatação ao salvar.
+- **EditorConfig** para regras basicas de editor.
+- **Prettier** no frontend.
+- **Ruff** no backend.
+- Recomendacoes do VS Code em `.vscode/`, incluindo formatacao ao salvar.
 
 No frontend:
 
 ```bash
 cd frontend
-pnpm run format        # formata os arquivos
-pnpm run format:check  # verifica se a formatação está correta
-pnpm run lint          # executa o ESLint
-pnpm run check         # executa lint + checagem do Prettier
+pnpm run format
+pnpm run format:check
+pnpm run lint
+pnpm run check
 ```
 
 No backend:
 
 ```bash
 cd backend
-ruff format .       # formata os arquivos Python
-ruff check .        # verifica lint/imports
-ruff check . --fix  # corrige automaticamente o que for seguro
+ruff format .
+ruff check .
+ruff check . --fix
 ```
 
-## Scripts úteis
+## Scripts uteis
 
 No frontend:
 
 ```bash
-pnpm run dev      # inicia o ambiente de desenvolvimento
-pnpm run build    # gera a versão de produção
-pnpm run lint     # executa o lint
-pnpm run preview  # pré-visualiza o build
+pnpm run dev
+pnpm run build
+pnpm run lint
+pnpm run preview
 ```
 
 No backend:
 
 ```bash
-fastapi dev main.py  # inicia a API em modo desenvolvimento
-fastapi run main.py  # inicia a API em modo produção
+fastapi dev main.py
+fastapi run main.py
 ```
 
-## Observações
+## Observacoes
 
-- Arquivos sensíveis, ambientes virtuais, dependências, builds e caches ficam fora do Git pelo `.gitignore` da raiz.
-- As dependências Python do backend ficam centralizadas em `backend/requirements.txt`.
-- As ferramentas de desenvolvimento Python ficam em `backend/requirements-dev.txt`.
-- Se alterar as credenciais do banco, prefira usar variáveis de ambiente em vez de deixar dados sensíveis direto no repositório.
+- Arquivos sensiveis, ambientes virtuais, dependencias, builds e caches ficam fora do Git pelo `.gitignore`.
+- Dependencias Python do backend ficam em `backend/requirements.txt`.
+- Ferramentas de desenvolvimento Python ficam em `backend/requirements-dev.txt`.
+- Credenciais e segredos devem ficar em variaveis de ambiente.
