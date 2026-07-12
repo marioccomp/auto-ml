@@ -1,7 +1,47 @@
+import { useEffect, useState } from 'react'
+
+import { getAuthModeFromPathname, navigateTo, navigationChangeEvent, routes } from './app/routes'
 import { AuthPage } from './pages/auth/AuthPage'
+import { NotFoundPage } from './pages/errors/NotFoundPage'
+
+function getCurrentPathname() {
+  return window.location.pathname
+}
 
 function App() {
-  return <AuthPage />
+  const [pathname, setPathname] = useState(getCurrentPathname)
+
+  useEffect(() => {
+    function handleLocationChange() {
+      setPathname(getCurrentPathname())
+    }
+
+    window.addEventListener('popstate', handleLocationChange)
+    window.addEventListener(navigationChangeEvent, handleLocationChange)
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange)
+      window.removeEventListener(navigationChangeEvent, handleLocationChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (pathname === routes.root) {
+      navigateTo(routes.login, { replace: true })
+    }
+  }, [pathname])
+
+  if (pathname === routes.root) {
+    return null
+  }
+
+  const authMode = getAuthModeFromPathname(pathname)
+
+  if (authMode) {
+    return <AuthPage mode={authMode} />
+  }
+
+  return <NotFoundPage />
 }
 
 export default App

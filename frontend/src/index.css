@@ -16,6 +16,9 @@
   --color-accent-muted: #ddf4ff;
   --color-accent-border: #54aeff66;
   --color-accent-text: #0969da;
+  --color-danger: #cf222e;
+  --color-danger-muted: #ffebe9;
+  --color-danger-border: #ff818266;
   --color-action: #1f883d;
   --color-action-hover: #1a7f37;
   --color-action-active: #197935;
@@ -61,6 +64,9 @@
   --color-accent-muted: #0d419d33;
   --color-accent-border: #1f6feb66;
   --color-accent-text: #79c0ff;
+  --color-danger: #ff7b72;
+  --color-danger-muted: #da363333;
+  --color-danger-border: #f8514966;
   --color-action: #238636;
   --color-action-hover: #2ea043;
   --color-action-active: #196c2e;
@@ -89,10 +95,12 @@
   --fgColor-muted: var(--color-text-muted);
   --fgColor-accent: var(--color-accent);
   --fgColor-link: var(--color-accent);
+  --fgColor-danger: var(--color-danger);
   --fgColor-success: var(--color-success-text);
   --borderColor-default: var(--color-border);
   --borderColor-muted: var(--color-border-muted);
   --borderColor-accent-muted: var(--color-accent-border);
+  --borderColor-danger-muted: var(--color-danger-border);
   --borderColor-success-muted: var(--color-success-border);
   --focus-outlineColor: var(--color-accent);
 }
