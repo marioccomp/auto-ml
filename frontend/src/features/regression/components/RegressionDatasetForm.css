@@ -1,0 +1,65 @@
+.regression-form {
+  --button-primary-bgColor-rest: var(--color-action);
+  --button-primary-bgColor-hover: var(--color-action-hover);
+  --button-primary-bgColor-active: var(--color-action-active);
+  --button-primary-borderColor-rest: var(--color-action-border);
+  --button-primary-borderColor-hover: var(--color-action-border);
+  --button-primary-fgColor-rest: var(--color-action-text);
+
+  width: 100%;
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(var(--space-5), 5vw, var(--space-7));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text);
+}
+
+.regression-form label,
+.regression-form [class*='Label'] {
+  color: var(--color-text) !important;
+}
+
+.regression-form [class*='Caption'] {
+  color: var(--color-text-muted) !important;
+}
+
+.regression-form [class*='TextInput'],
+.regression-form input {
+  background: var(--color-field-bg) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-field-text) !important;
+}
+
+.regression-form input {
+  box-shadow: none !important;
+}
+
+.regression-form input::placeholder {
+  color: var(--color-text-muted) !important;
+}
+
+.regression-form__fields {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.regression-form__submit {
+  justify-content: center;
+}
+
+.regression-form__result {
+  padding: var(--space-4);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-muted);
+}
+
+.regression-form__result p {
+  margin: 0;
+  color: var(--color-accent-text);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
