@@ -7,31 +7,32 @@ openml.config.set_root_cache_directory("./.openml-cache")
 
 
 def get_dataset_id_from_url(url: str) -> int | None:
-
     parsed = urlparse(url)
     query = parse_qs(parsed.query)
 
     if "id" in query:
         return int(query["id"].pop())
-    else:
-        return None
+
+    return None
 
 
-def load_openml_dataset(datased_id: int) -> DataFrame:
-    dataset = openml.datasets.get_dataset(datased_id)
+def load_openml_dataset(
+    dataset_id: int,
+) -> DataFrame:
+    dataset = openml.datasets.get_dataset(dataset_id)
     x, y, categorical_indicator, attribute_names = dataset.get_data(
-        dataset_format="dataframe"
+        dataset_format="dataframe",
+        target="class",
     )
-    y = x[
-        "class"
-    ]  # OpenML aparentemente retorna o dataset inteiro, entao o y tem q pegar a coluna alvo
-    x = x.drop(columns=["class"])
-    print(x.tail())
-    print(y.tail())
+
+    return x, y
 
 
-id = get_dataset_id_from_url(
-    "https://www.openml.org/search?type=data&sort=runs&status=active&id=31"  # teste hardcoded, esse script receberia a URL via API
-)
+if __name__ == "__main__":
+    dataset_id = get_dataset_id_from_url(
+        "https://www.openml.org/search?type=data&sort=runs&status=active&id=31"
+    )
 
-load_openml_dataset(id)
+    if dataset_id is not None:
+        loaded_dataset = load_openml_dataset(dataset_id)
+        print(loaded_dataset)
