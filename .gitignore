@@ -108,3 +108,5 @@ Desktop.ini
 *.njsproj
 *.sln
 *.sw?
+# OpenML local dataset cache
+backend/.openml-cache/

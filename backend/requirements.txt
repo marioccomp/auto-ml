@@ -3,3 +3,4 @@ sqlalchemy
 alembic
 openml
 pandas
+scikit-learn
