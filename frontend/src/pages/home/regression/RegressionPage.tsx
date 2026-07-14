@@ -3,7 +3,6 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { ThemeToggle } from '../../../components/theme/ThemeToggle'
 import { RegressionDatasetForm } from '../../../features/regression/components/RegressionDatasetForm'
 import type { RegressionDatasetResponse } from '../../../features/regression/types'
-import './RegressionPage.css'
 
 type ApiStatusResponse = {
   status: string
@@ -54,20 +53,35 @@ export function RegressionPage() {
   })
 
   return (
-    <main className="regression-page">
+    <main className="grid min-h-svh items-center bg-[var(--color-canvas)] px-[var(--space-6)] py-[clamp(var(--space-5),6vw,72px)] text-[var(--color-text)] max-[480px]:items-start max-[480px]:px-[var(--space-4)] max-[480px]:pt-[72px] max-[480px]:pb-[var(--space-5)]">
       <ThemeToggle />
 
-      <section className="regression-page__content" aria-labelledby="regression-title">
-        <div className="regression-page__header">
-          <p className="regression-page__eyebrow">Auto ML</p>
-          <h1 id="regression-title">Regressao linear</h1>
-          <p>
+      <section
+        className="mx-auto grid w-[min(100%,720px)] gap-[var(--space-5)]"
+        aria-labelledby="regression-title"
+      >
+        <div className="grid gap-[var(--space-3)]">
+          <p className="m-0 text-[0.8125rem] font-bold tracking-normal text-[var(--color-accent-text)] uppercase">
+            Auto ML
+          </p>
+          <h1
+            className="m-0 text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] font-bold tracking-normal text-[var(--color-text)]"
+            id="regression-title"
+          >
+            Regressao linear
+          </h1>
+          <p className="m-0 max-w-[620px] text-base leading-[1.6] text-[var(--color-text-muted)]">
             Informe a URL de um dataset numerico para preparar a visualizacao inicial do resultado.
           </p>
 
-          <div className="regression-page__api-status" aria-live="polite">
-            <span>GET /</span>
-            <strong>
+          <div
+            className="flex w-fit items-center gap-[var(--space-3)] rounded-[var(--radius-md)] border border-[var(--color-accent-border)] bg-[var(--color-accent-muted)] px-[var(--space-3)] py-[var(--space-2)]"
+            aria-live="polite"
+          >
+            <span className="font-mono text-[0.8125rem] text-[var(--color-accent-text)]">
+              GET /
+            </span>
+            <strong className="text-sm text-[var(--color-text)]">
               {apiStatusQuery.isPending
                 ? 'Verificando API'
                 : apiStatusQuery.isError

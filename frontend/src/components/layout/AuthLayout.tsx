@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 
 import { ThemeToggle } from '../theme/ThemeToggle'
-import './AuthLayout.css'
 
 type AuthLayoutProps = {
   children: ReactNode
@@ -9,9 +8,9 @@ type AuthLayoutProps = {
 
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <main className="auth-layout">
+    <main className="grid min-h-svh place-items-center bg-[var(--color-canvas)] p-[var(--space-6)] max-[480px]:items-start max-[480px]:p-[var(--space-4)]">
       <ThemeToggle />
-      <section className="auth-layout__panel" aria-label="Autenticacao">
+      <section className="w-[min(100%,420px)]" aria-label="Autenticacao">
         {children}
       </section>
     </main>
