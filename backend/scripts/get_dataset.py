@@ -32,7 +32,7 @@ def load_openml_dataset(
 
 if __name__ == "__main__":
     dataset_id = get_dataset_id_from_url(
-        "https://www.openml.org/search?type=data&status=active&id=189"
+        "https://www.openml.org/search?type=data&sort=runs&status=active&qualities.NumberOfClasses=lte_1&id=204"
     )
 
     if dataset_id is not None:
